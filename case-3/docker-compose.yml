@@ -8,7 +8,7 @@ services:
       - "8065:8065"
     environment:
       - MM_SQLSETTINGS_DRIVERNAME=postgres
-      - MM_SQLSETTINGS_DATASOURCE=postgres://mattermost:password@postgres:5432/mattermost
+      - MM_SQLSETTINGS_DATASOURCE=postgres://mattermost:password@postgres:5432/mattermost?sslmode=disable
       - MM_SERVICESETTINGS_SITEURL=http://localhost:8065
     volumes:
       - mattermost_data:/mattermost/data
