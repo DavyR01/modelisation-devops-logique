@@ -1,9 +1,10 @@
-
 filebeat.inputs:
-- type: log
-  enabled: true
-  paths:
-    - /var/log/*.log
+  - type: container
+    enabled: true
+    paths:
+      - /var/lib/docker/containers/*/*.log
+    processors:
+      - add_docker_metadata: ~
 
 output.logstash:
   hosts: ["logstash:5044"]
