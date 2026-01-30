@@ -1,0 +1,12 @@
+{
+   "devDependencies": {
+      "ts-node": "^10.9.2",
+      "tsx": "^4.21.0",
+      "typescript": "^5.9.3"
+   },
+  "scripts": {
+      "strings": "npx tsx logique/strings.ts",
+      "arrays": "npx tsx logique/arrays.ts",
+      "objects": "npx tsx logique/objects.ts"
+   }
+}
