@@ -1,4 +1,3 @@
-
 version: '3.8'
 services:
   elasticsearch:
@@ -12,6 +11,12 @@ services:
       - xpack.security.enabled=false
     volumes:
       - elasticsearch_data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:9200 >/dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
 
   logstash:
     image: docker.elastic.co/logstash/logstash:8.11.0
@@ -26,7 +31,8 @@ services:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
       - ./logstash/pipeline:/usr/share/logstash/pipeline
     depends_on:
-      - elasticsearch
+      elasticsearch:
+        condition: service_healthy
 
   kibana:
     image: docker.elastic.co/kibana/kibana:8.11.0
@@ -35,7 +41,8 @@ services:
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
     depends_on:
-      - elasticsearch
+      elasticsearch:
+        condition: service_healthy
 
   filebeat:
     image: docker.elastic.co/beats/filebeat:8.11.0
@@ -47,8 +54,10 @@ services:
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
     depends_on:
-      - elasticsearch
-      - logstash
+      elasticsearch:
+        condition: service_healthy
+      logstash:
+        condition: service_started
 
 volumes:
   elasticsearch_data:
