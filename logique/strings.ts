@@ -157,3 +157,5 @@ function maskString(value: string, visibleCount: number): string {
 
 const cardNumber = "1234567890123456";
 console.log(maskString(cardNumber, 4)); br(); // "3456"
+
+export {};
