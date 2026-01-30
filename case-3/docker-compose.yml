@@ -18,7 +18,7 @@ services:
       - postgres
 
   postgres:
-    image: postgres:13
+    image: postgres:14
     environment:
       - POSTGRES_USER=mattermost
       - POSTGRES_PASSWORD=password
