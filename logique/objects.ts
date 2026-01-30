@@ -78,3 +78,4 @@ const inventory = {
 
 console.log(filterObject(inventory, stock => stock === 0)); br() // { laptop: 0, tablet: 0 }
 
+export { };
