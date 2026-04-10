@@ -1,5 +1,3 @@
-
-version: '3.8'
 services:
   nextcloud:
     image: nextcloud:latest
@@ -16,6 +14,8 @@ services:
     depends_on:
       - postgres
       - redis
+    networks:
+      - nextcloud_network
 
   postgres:
     image: postgres:13
@@ -30,6 +30,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - nextcloud_network
 
   redis:
     image: redis:alpine
@@ -38,7 +40,12 @@ services:
       interval: 10s
       timeout: 3s
       retries: 5
+    networks:
+      - nextcloud_network
 
 volumes:
   nextcloud_data:
   postgres_data:
+
+networks:
+  nextcloud_network:
