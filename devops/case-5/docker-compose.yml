@@ -15,7 +15,7 @@ services:
 
   kong-migration:
     image: kong:3.4
-    command: kong migrations bootstrap
+    command: sh -c "sleep 10 && kong migrations bootstrap"
     environment:
       - KONG_DATABASE=postgres
       - KONG_PG_HOST=kong-database
@@ -24,6 +24,7 @@ services:
       - KONG_PG_DATABASE=kong
     depends_on:
       - kong-database
+    restart: on-failure
 
   kong:
     image: kong:3.4
