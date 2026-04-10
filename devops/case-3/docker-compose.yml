@@ -6,7 +6,7 @@ services:
       - "8065:8065"
     environment:
       - MM_SQLSETTINGS_DRIVERNAME=postgres
-      - MM_SQLSETTINGS_DATASOURCE=postgres://mattermost:password@postgres:5432/mattermost?sslmode=disable
+      - MM_SQLSETTINGS_DATASOURCE=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?sslmode=disable
       - MM_SERVICESETTINGS_SITEURL=http://localhost:8065
       - MM_TEAMSETTINGS_ENABLEOPENSERVER=true
     volumes:
@@ -19,9 +19,9 @@ services:
   postgres:
     image: postgres:14
     environment:
-      - POSTGRES_USER=mattermost
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=mattermost
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
