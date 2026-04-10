@@ -1,5 +1,3 @@
-
-version: '3.8'
 services:
   mattermost:
     image: mattermost/mattermost-team-edition:latest
@@ -10,6 +8,7 @@ services:
       - MM_SQLSETTINGS_DRIVERNAME=postgres
       - MM_SQLSETTINGS_DATASOURCE=postgres://mattermost:password@postgres:5432/mattermost?sslmode=disable
       - MM_SERVICESETTINGS_SITEURL=http://localhost:8065
+      - MM_TEAMSETTINGS_ENABLEOPENSERVER=true
     volumes:
       - mattermost_data:/mattermost/data
       - mattermost_logs:/mattermost/logs
