@@ -13,6 +13,8 @@ services:
       - wordpress_data:/var/www/html
     depends_on:
       - mysql
+    networks:
+      - app_net
 
   mysql:
     image: mysql:8.0
@@ -23,8 +25,8 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - mysql_data:/var/lib/mysql
-    # ports:
-    #   - "3306:3306"
+    networks:
+      - app_net
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -36,7 +38,13 @@ services:
       PMA_PASSWORD: ${PMA_PASSWORD}
     depends_on:
       - mysql
+    networks:
+      - app_net
 
 volumes:
   wordpress_data:
   mysql_data:
+
+networks:
+  app_net:
+    driver: bridge
