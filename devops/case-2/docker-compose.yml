@@ -12,7 +12,7 @@ services:
     volumes:
       - nextcloud_data:/var/www/html
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/status.php"]
+      test: ["CMD-SHELL", "wget -q --spider http://localhost/status.php || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
